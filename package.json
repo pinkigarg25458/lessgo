@@ -1,0 +1,33 @@
+{
+  "name": "instagram-token-deploy-mvp",
+  "version": "1.0.0",
+  "description": "Instagram comment-triggered token deployment system - MVP",
+  "main": "index.js",
+  "scripts": {
+    "test-instagram": "node scripts/test-instagram.js",
+    "test-pumpportal": "node scripts/test-pumpportal.js",
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "instagram",
+    "solana",
+    "token",
+    "pumpportal"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@solana/web3.js": "^1.87.6",
+    "axios": "^1.6.5",
+    "bs58": "^5.0.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "form-data": "^4.0.0",
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "prisma": "^5.22.0"
+  }
+}

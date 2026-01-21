@@ -1,0 +1,60 @@
+// This is your Prisma schema file
+// For Node.js/TypeScript usage
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   String   @id @default(cuid())
+  instagramUsername    String   @unique @map("instagram_username")
+  instagramAccountUrl  String?  @map("instagram_account_url")
+  fullName             String?  @map("full_name")
+  followersCount       Int      @default(0) @map("followers_count")
+  profilePictureUrl    String?  @map("profile_picture_url")
+  profilePictureData   Bytes?   @map("profile_picture_data") // Store image as binary
+  createdAt            DateTime @default(now()) @map("created_at")
+  updatedAt            DateTime @updatedAt @map("updated_at")
+  
+  // Relations
+  deployments          TokenDeployment[]
+  
+  @@map("users")
+}
+
+model TokenDeployment {
+  id                String   @id @default(cuid())
+  userId            String   @map("user_id")
+  commentId         String   @unique @map("comment_id")
+  commentText       String   @map("comment_text")
+  postUrl           String   @map("post_url")
+  tokenName         String   @map("token_name")
+  ticker            String
+  mintAddress       String   @unique @map("mint_address")
+  transactionHash   String   @map("transaction_hash")
+  pumpfunUrl        String   @map("pumpfun_url")
+  metadataUri       String?  @map("metadata_uri")
+  autoReplyId       String?  @map("auto_reply_id")
+  status            DeploymentStatus @default(PENDING)
+  errorMessage      String?  @map("error_message")
+  deployedAt        DateTime @default(now()) @map("deployed_at")
+  
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@index([userId])
+  @@index([status])
+  @@index([deployedAt])
+  @@map("token_deployments")
+}
+
+enum DeploymentStatus {
+  PENDING
+  SUCCESS
+  FAILED
+}
