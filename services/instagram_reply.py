@@ -33,7 +33,7 @@ def reply_to_comment(comment_id, token_name, ticker, mint_address, transaction_s
     
     reply_message = f"""✅ Token deployed successfully
 
- {token_name} (${ticker}) 
+🪙 {token_name} (${ticker}) 
 {pump_url}
 
 🔗 Solana tx 
